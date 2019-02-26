@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Video Frames</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Video Frame</h1>
+    <section class="section-video">
+      <div id="movie"></div>
+
+      <video width="600" height="370" controls id="polaris-video">
+        <source src="videos/Video-1.mp4" type="video/mp4" />
+      </video>
+
+      <canvas id="prevImgCanvas"
+        >Your browser does not support the HTML5 canvas tag.</canvas
+      >
+      <button onclick="playVideo()">Play video</button>
+    </section>
+    <script>
+      var video = document.createElement("video");
+      video.src = "videos/Video-1.mp4";
+      video.currentTime = 2.492206;
+      var canvas = document.getElementById("prevImgCanvas");
+      canvas.width = "600";
+      canvas.height = "300";
+
+      var polarisVideo = document.getElementById("polaris-video");
+      polarisVideo.onended = () => displayOverlay();
+
+      video.addEventListener("seeked", function() {
+        console.log("seeked event!!!!!");
+        var context = canvas.getContext("2d");
+        context.drawImage(video, 20, 50, canvas.width, canvas.height);
+      });
+
+      function playVideo() {
+        canvas.style.visibility = "hidden";
+        polarisVideo.play();
+      }
+
+      function displayOverlay() {
+        console.log("video ended...");
+        canvas.style.visibility = "visible";
+      }
+    </script>
+  </body>
+</html>
